@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1  # Number of Nginx pods you want to run
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest  # Use the latest Nginx image
+        ports:
+        - containerPort: 80  # Expose port 80 of the container
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx  # Match the labels used in the Deployment
+  ports:
+    - protocol: TCP
+      port: 80  # Port on the Service
+      targetPort: 80  # Port on the Nginx pods
+  type: ClusterIP  # Expose the Service internally within the cluster

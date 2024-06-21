@@ -1,0 +1,55 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gw-ingressgateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 8080
+      name: http
+      protocol: HTTP
+    hosts:
+      - rimin.com
+      - kiali.local.com
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1beta1
+metadata:
+  name: vs-ingressgateway
+spec:
+  hosts:
+    - rimin.com
+  gateways:
+    - gw-ingressgateway
+  http:
+    - match:
+        - port: 80
+          gateways:
+            - gw-ingressgateway 
+      route:
+      - destination:
+          host: nginx-service.front-end.svc.cluster.local
+          port:
+            number: 80
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1beta1
+metadata:
+  name: vs-kiali
+spec:
+  hosts:
+    - kiali.local.com
+  gateways:
+    - gw-ingressgateway
+  http:
+    - match:
+        - port: 80
+          gateways:
+            - gw-ingressgateway 
+      route:
+      - destination:
+          host: kiali.istio-system.svc.cluster.local
+          port:
+            number: 20001
