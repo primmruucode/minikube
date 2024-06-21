@@ -71,6 +71,6 @@ spec:
             - gw-ingressgateway 
       route:
       - destination:
-          host: kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local
+          host: kubernetes-dashboard.kube-system.svc.cluster.local
           port:
-            number: 80
+            number: 443
