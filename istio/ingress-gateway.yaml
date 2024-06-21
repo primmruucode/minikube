@@ -13,6 +13,7 @@ spec:
     hosts:
       - rimin.com
       - kiali.local.com
+      - dash.local.com
 ---
 kind: VirtualService
 apiVersion: networking.istio.io/v1beta1
@@ -53,3 +54,23 @@ spec:
           host: kiali.istio-system.svc.cluster.local
           port:
             number: 20001
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1beta1
+metadata:
+  name: vs-dash
+spec:
+  hosts:
+    - dash.local.com
+  gateways:
+    - gw-ingressgateway
+  http:
+    - match:
+        - port: 80
+          gateways:
+            - gw-ingressgateway 
+      route:
+      - destination:
+          host: kubernetes-dashboard-kong-proxy.kubernetes-dashboard.svc.cluster.local
+          port:
+            number: 8443
