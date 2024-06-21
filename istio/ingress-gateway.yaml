@@ -66,11 +66,11 @@ spec:
     - gw-ingressgateway
   http:
     - match:
-        - port: 443
+        - port: 80
           gateways:
             - gw-ingressgateway 
       route:
       - destination:
           host: kubernetes-dashboard.kube-system.svc.cluster.local
           port:
-            number: 443
+            number: 9090
