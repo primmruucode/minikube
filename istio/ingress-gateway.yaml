@@ -14,14 +14,6 @@ spec:
       - rimin.com
       - kiali.local.com
       - dash.local.com
-  - port:
-      number: 443
-      name: https
-      protocol: TLS
-    hosts:
-      - rimin.com
-      - kiali.local.com
-      - dash.local.com
 ---
 kind: VirtualService
 apiVersion: networking.istio.io/v1beta1
