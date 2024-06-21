@@ -14,6 +14,14 @@ spec:
       - rimin.com
       - kiali.local.com
       - dash.local.com
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+      - rimin.com
+      - kiali.local.com
+      - dash.local.com
 ---
 kind: VirtualService
 apiVersion: networking.istio.io/v1beta1
@@ -66,7 +74,7 @@ spec:
     - gw-ingressgateway
   http:
     - match:
-        - port: 80
+        - port: 443
           gateways:
             - gw-ingressgateway 
       route:
