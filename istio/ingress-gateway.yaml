@@ -73,4 +73,4 @@ spec:
       - destination:
           host: kubernetes-dashboard-kong-proxy.kubernetes-dashboard.svc.cluster.local
           port:
-            number: 8443
+            number: 9090
